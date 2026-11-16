@@ -4,6 +4,10 @@
 
 The CRS plugin documentation can be found on the [website](https://coreruleset.org/docs/configuring/plugins/).
 
+This repo lives at [git.open.engineering](https://git.open.engineering/oeng/forgejo-rule-exclusions-plugin) but is mirrored to the following locations:
+- [Codeberg](https://codeberg.org/open-engineering/forgejo-rule-exclusions-plugin)
+- [GitHub](https://github.com/jessebot/forgejo-rule-exclusions-plugin)
+
 ## Testing
 
 Plugins can also be shipped with their own tests. Any `ftw` test yaml file that you add below the `tests/regression` directory will be run by the integrated pipeline.
