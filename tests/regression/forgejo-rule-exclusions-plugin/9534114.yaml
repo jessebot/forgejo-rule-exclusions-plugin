@@ -1,0 +1,27 @@
+---
+meta:
+  author: "Jesse Hitch"
+  description: "Forgejo Rule Exclusions Plugin - check issue rule exclusion"
+rule_id: 9534114
+tests:
+  - test_id: 1
+    desc: Check if the forgejo rule exclusions work for the issue contents
+    stages:
+      - input:
+          dest_addr: 127.0.0.1
+          headers:
+            Host: localhost
+            User-Agent: OWASP CRS
+            Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+            Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+          port: 80
+          method: POST
+          uri: /test-owner/test-repo/issues/000/content
+          data: |-
+            content=As+an+example+for+zitadel+we%27d+pass+in+the+following+values+to+the+smol-plugin%2C+and+nothing+else%3A%0A%0A%60%60%60yaml%0AsimpleMode%3A%0A++appName%3A+%22zitadel%22%0A++enabled%3A+true%0A++db%3A%0A++++enabled%3A+true%0A++app%3A%0A++++enabled%3A+false%0A%60%60%60%0A%0AAnd+as+an+example+for+harbor%2C+we%27d+do%3A%0A%0A%60%60%60yaml%0AsimpleMode%3A%0A++appName%3A+%22harbor%22%0A++enabled%3A+true%0A++db%3A%0A++++enabled%3A+true%0A++app%3A%0A++++enabled%3A+true%0A%60%60%60%0A%0AAs+an+example+for+gotosocial%2C+we%27d+do%3A%0A%0A%60%60%60yaml%0AsimpleMode%3A%0A++appName%3A+%22gotosocial%22%0A++enabled%3A+true%0A++db%3A%0A++++enabled%3A+true%0A++app%3A%0A++++enabled%3A+true%0A++++anonymousRead%3A+true%0A%60%60%60%0A%0ACloses+%23294&context=%2Foeng%2Fargocd-apps&content_version=0
+        output:
+          log:
+            no_expect_ids:
+              - 932230
+              - 932235
+              - 932160
