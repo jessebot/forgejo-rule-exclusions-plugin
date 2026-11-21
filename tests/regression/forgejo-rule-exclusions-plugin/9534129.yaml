@@ -1,0 +1,25 @@
+---
+meta:
+  author: "Jesse Hitch"
+  description: "Forgejo Rule Exclusions Plugin - check settings rule exclusion"
+rule_id: 9534129
+tests:
+  - test_id: 1
+    desc: Check if the forgejo rule exclusions work for updating repo settings
+    stages:
+      - input:
+          dest_addr: 127.0.0.1
+          headers:
+            Host: localhost
+            User-Agent: OWASP CRS
+            Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+            Content-Type: application/x-www-form-urlencoded
+          port: 80
+          method: POST
+          uri: /repo-owner/repo-name/settings/units
+          data: |-
+            enable_code=on&enable_projects=on&enable_releases=on&enable_packages=on&enable_actions=on&enable_issues=on&enable_external_tracker=false&enable_timetracker=on&allow_only_contributors_to_track_time=on&enable_issue_dependencies=on&external_tracker_url=&tracker_url_format=&external_tracker_regexp_pattern=&enable_pulls=on&pulls_allow_rebase_merge=on&pulls_allow_squash=on&pulls_default_merge_style=squash&pulls_allow_rebase_update=on&pulls_default_update_style=rebase&default_delete_branch_after_merge=on&enable_autodetect_manual_merge=on&enable_wiki=on&enable_external_wiki=false&external_wiki_url=
+        output:
+          log:
+            no_expect_ids:
+              - 932370
