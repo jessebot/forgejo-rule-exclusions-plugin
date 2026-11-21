@@ -1,0 +1,81 @@
+---
+meta:
+  author: "Jesse Hitch"
+  description: "Forgejo Rule Exclusions Plugin - check issue rule exclusion"
+rule_id: 9534131
+tests:
+  - test_id: 1
+    desc: Check if the forgejo rule exclusions work for the PR merge contents
+    stages:
+      - input:
+          dest_addr: 127.0.0.1
+          headers:
+            Host: localhost
+            User-Agent: OWASP CRS
+            Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+            Content-Type: multipart/form-data; boundary=----geckoformboundary1b500184da0fcae337aa1ef4c9a8867c
+          port: 80
+          method: POST
+          uri: /test-owner/test-repo/pulls/100/merge
+          data: |-
+            ------geckoformboundary1b500184da0fcae337aa1ef4c9a8867c
+            Content-Disposition: form-data; name="head_commit_id"
+
+            393ca2d7d074890ec9f43648ff78d8ddc795411c
+            ------geckoformboundary1b500184da0fcae337aa1ef4c9a8867c
+            Content-Disposition: form-data; name="merge_when_checks_succeed"
+
+            false
+            ------geckoformboundary1b500184da0fcae337aa1ef4c9a8867c
+            Content-Disposition: form-data; name="force_merge"
+
+            false
+            ------geckoformboundary1b500184da0fcae337aa1ef4c9a8867c
+            Content-Disposition: form-data; name="merge_title_field"
+
+            get ready to accomadate a "simple mode" for deploying seaweedfs for most web apps we manage (#295)
+            ------geckoformboundary1b500184da0fcae337aa1ef4c9a8867c
+            Content-Disposition: form-data; name="merge_message_field"
+
+            As an example for zitadel we'd pass in the following values to the smol-plugin, and nothing else:
+
+            ```yaml
+            simpleMode:
+              appName: "zitadel"
+              enabled: true
+              db:
+                enabled: true
+              app:
+                enabled: false
+            ```
+
+            As an example for gotosocial, we'd do:
+
+            ```yaml
+            simpleMode:
+              appName: "gotosocial"
+              enabled: true
+              db:
+                enabled: true
+              app:
+                enabled: true
+                anonymousRead: true
+            ```
+
+            Closes #294
+
+            Reviewed-on: https://git.test.tld/owner/repo/pulls/295
+
+            ------geckoformboundary1b500184da0fcae337aa1ef4c9a8867c
+            Content-Disposition: form-data; name="delete_branch_after_merge"
+
+            on
+            ------geckoformboundary1b500184da0fcae337aa1ef4c9a8867c
+            Content-Disposition: form-data; name="do"
+
+            squash
+            ------geckoformboundary1b500184da0fcae337aa1ef4c9a8867c--
+        output:
+          log:
+            no_expect_ids:
+              - 932230
